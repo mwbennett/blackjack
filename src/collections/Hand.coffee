@@ -3,17 +3,17 @@ class window.Hand extends Backbone.Collection
 
   initialize: (array, @deck, @isDealer) ->
     @on 'add', @checkBust, @
-    @checkBlackJack()
 
   hit: ->
-    # debugger
     @add(@deck.pop())
 
-  hasAce: -> @reduce (memo, card) ->
-    memo or card.get('value') is 1
-  , 0
+  hasAce: ->
+    @reduce (memo, card) ->
+      memo or card.get('value') is 1
+    , 0
 
   minScore: -> @reduce (score, card) ->
+    debugger
     score + if card.get 'revealed' then card.get 'value' else 0
   , 0
 
@@ -24,10 +24,11 @@ class window.Hand extends Backbone.Collection
     [@minScore(), @minScore() + 10 * @hasAce()]
 
   bust: ->
-    @trigger 'bust'
+    debugger
+    @trigger 'bust', 'bust'
 
   blackjack: ->
-    @trigger 'blackjack'
+    @trigger 'blackjack', 'blackjack'
 
   stand: ->
     @trigger 'stand'

@@ -11,6 +11,10 @@ class window.AppView extends Backbone.View
 
   initialize: ->
     @render()
+    @model.get('playerHand').on 'bust blackjack', (event) =>
+      alert event
+      @model.initialize()
+      @render()
 
   render: ->
     @$el.children().detach()
