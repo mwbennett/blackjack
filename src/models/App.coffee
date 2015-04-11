@@ -3,9 +3,12 @@
 class window.App extends Backbone.Model
   initialize: ->
     @set 'deck', deck = new Deck()
-    # deck.add(new Card({rank: 10}))
-    # deck.add(new Card({rank: 11}))
     @set 'playerHand', deck.dealPlayer()
+    # @get('playerHand').on 'blackjack bust', (event) =>
+    #   debugger
+    #   alert event
+    #   @initialize()
+    # @get('playerHand').checkBlackJack()
     @set 'dealerHand', deck.dealDealer()
 
   endGame: ->

@@ -1,6 +1,6 @@
 class window.AppView extends Backbone.View
   template: _.template '
-    <button class="hit-button">Hit</button> <button class="stand-button">Stand</button>
+    <button class="hit-button">Hit</button> <button class="stand-button">Stand</button> <button class="replay-button blackjack">Replay</button> <h1 class="blackjack"></h1>
     <div class="player-hand-container"></div>
     <div class="dealer-hand-container"></div>
   '
@@ -8,13 +8,16 @@ class window.AppView extends Backbone.View
   events:
     'click .hit-button': -> @model.get('playerHand').hit()
     'click .stand-button': -> @model.get('playerHand').stand()
+    'click .replay-button': -> @model.initialize()
 
   initialize: ->
     @render()
-    @model.get('playerHand').on 'bust blackjack', (event) =>
-      alert event
-      @model.initialize()
-      @render()
+    @model.get('playerHand').on 'blackjack bust', (event) ->
+      debugger
+      @$el.find('h1').text(event)
+    , @
+
+    @model.get('playerHand').checkBlackJack()
 
   render: ->
     @$el.children().detach()

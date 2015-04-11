@@ -13,7 +13,6 @@ class window.Hand extends Backbone.Collection
     , 0
 
   minScore: -> @reduce (score, card) ->
-    debugger
     score + if card.get 'revealed' then card.get 'value' else 0
   , 0
 
@@ -24,7 +23,6 @@ class window.Hand extends Backbone.Collection
     [@minScore(), @minScore() + 10 * @hasAce()]
 
   bust: ->
-    debugger
     @trigger 'bust', 'bust'
 
   blackjack: ->
@@ -40,3 +38,4 @@ class window.Hand extends Backbone.Collection
   checkBlackJack: ->
     # blackjack: if @scores[1] === 21 && @length === 2, invoke blackjack method
     @blackjack() if @scores()[1] is 21
+
